@@ -11,7 +11,7 @@ A dual-purpose **CLI + MCP server** for Apollo.io (`apollo-agent-cli` on npm), b
 following the established conventions of the existing CLI tool fleet in `~/Developer/`.
 
 ### Project Location
-`~/Developer/apollo-cli-INREVIEW/`
+`~/Developer/apollo-agent-cli/`
 
 ### Stats
 - **55 commands across 16 groups** — full coverage of Apollo's documented REST API
@@ -43,7 +43,7 @@ following the established conventions of the existing CLI tool fleet in `~/Devel
 ### File Structure
 
 ```
-apollo-cli-INREVIEW/
+apollo-agent-cli/
 ├── package.json              # name: apollo-agent-cli, version: 0.1.0
 ├── tsconfig.json             # ES2022, ESM, strict, bundler resolution
 ├── tsup.config.ts            # Two entry points: index.ts + mcp.ts
@@ -152,7 +152,7 @@ Be thorough. Do not skip files. Flag anything suspicious, broken, or inconsisten
 ```
 Please perform a full QC audit of the Apollo CLI project located at:
 
-  ~/Developer/apollo-cli-INREVIEW/
+  ~/Developer/apollo-agent-cli/
 
 ## Context
 

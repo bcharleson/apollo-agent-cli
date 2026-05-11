@@ -22,7 +22,7 @@ const VERSION = '0.1.0';
  * `/accounts` (POST) without accidentally matching `/accounts/search`,
  * and include `/organizations/{id}` (GET) without matching `/organizations/enrich`.
  *
- * Source of truth: Apollo API docs + apollo-cli AGENTS.md endpoint annotations.
+ * Source of truth: Apollo API docs + apollo-agent-cli AGENTS.md endpoint annotations.
  * Keep this list in sync with the `[master key]` markers in AGENTS.md.
  */
 export const MASTER_KEY_PATTERNS: Array<{ method: string; regex: RegExp; label: string }> = [

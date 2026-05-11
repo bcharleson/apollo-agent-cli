@@ -10,7 +10,7 @@ let tmpHome: string;
 const originalEnv = { ...process.env };
 
 beforeAll(() => {
-  tmpHome = mkdtempSync(join(tmpdir(), 'apollo-cli-test-'));
+  tmpHome = mkdtempSync(join(tmpdir(), 'apollo-agent-cli-test-'));
 });
 
 afterAll(() => {

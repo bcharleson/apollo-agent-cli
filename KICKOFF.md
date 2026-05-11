@@ -4,7 +4,7 @@ service:
   domain:      apollo.io
   npm:         apollo-agent-cli
   npmFallback: apollo-crm-cli
-  github:      bcharleson/apollo-cli
+  github:      bcharleson/apollo-agent-cli
 
 # ────────────────────────────────────────────────────────────────
 

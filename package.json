@@ -37,6 +37,14 @@
   ],
   "author": "bcharleson",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcharleson/apollo-agent-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bcharleson/apollo-agent-cli/issues"
+  },
+  "homepage": "https://github.com/bcharleson/apollo-agent-cli#readme",
   "engines": {
     "node": ">=18.0.0"
   },

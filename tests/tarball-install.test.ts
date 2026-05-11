@@ -46,7 +46,7 @@ beforeAll(() => {
   if (!candidate) throw new Error('npm pack did not produce a tarball');
   tarballName = candidate;
 
-  installDir = mkdtempSync(join(tmpdir(), 'apollo-cli-install-'));
+  installDir = mkdtempSync(join(tmpdir(), 'apollo-agent-cli-install-'));
   run('npm', ['init', '-y', '--silent'], installDir);
   run('npm', ['install', '--silent', join(projectRoot, tarballName)], installDir);
 

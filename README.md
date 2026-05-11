@@ -1,4 +1,4 @@
-# Apollo CLI
+# Apollo Agent CLI
 
 **Apollo.io in your terminal.** Prospect, enrich, manage contacts and accounts, run sequences, and track deals — all from a single command line.
 
@@ -58,8 +58,8 @@ npx apollo-agent-cli people search --domain apollo.io
 ### From source
 
 ```bash
-git clone https://github.com/bcharleson/apollo-cli.git
-cd apollo-cli
+git clone https://github.com/bcharleson/apollo-agent-cli.git
+cd apollo-agent-cli
 npm install && npm run build
 npm link
 ```
@@ -482,8 +482,8 @@ Adding a new endpoint = creating one file. The command is automatically availabl
 ## Development
 
 ```bash
-git clone https://github.com/bcharleson/apollo-cli.git
-cd apollo-cli
+git clone https://github.com/bcharleson/apollo-agent-cli.git
+cd apollo-agent-cli
 npm install
 
 npm run dev -- people search          # Dev mode (tsx)
