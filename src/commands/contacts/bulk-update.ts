@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { CommandDefinition } from '../../core/types.js';
+import { UserInputError } from '../../core/errors.js';
 
 export const contactsBulkUpdateCommand: CommandDefinition = {
   name: 'contacts_bulk_update',
@@ -35,20 +36,20 @@ export const contactsBulkUpdateCommand: CommandDefinition = {
     try {
       contacts = JSON.parse(input.contacts_json);
     } catch {
-      throw new Error('--contacts must be valid JSON array');
+      throw new UserInputError('--contacts must be valid JSON array');
     }
     if (!Array.isArray(contacts)) {
-      throw new Error('--contacts must be a JSON array');
+      throw new UserInputError('--contacts must be a JSON array');
     }
     if (contacts.length === 0) {
-      throw new Error('--contacts array must not be empty');
+      throw new UserInputError('--contacts array must not be empty');
     }
     if (contacts.length > 100) {
-      throw new Error('Maximum 100 contacts per bulk update request');
+      throw new UserInputError('Maximum 100 contacts per bulk update request');
     }
     for (const c of contacts) {
       if (!c || typeof c !== 'object' || !c.id) {
-        throw new Error('Each contact in --contacts must have an "id" field');
+        throw new UserInputError('Each contact in --contacts must have an "id" field');
       }
     }
     return client.post('/contacts/bulk_update', { contacts });

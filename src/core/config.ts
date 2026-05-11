@@ -3,20 +3,22 @@ import { join } from 'node:path';
 import { homedir } from 'node:os';
 import type { ApolloConfig } from './types.js';
 
-const CONFIG_DIR = join(homedir(), '.apollo-cli');
-const CONFIG_FILE = join(CONFIG_DIR, 'config.json');
-
+/**
+ * Resolve the config directory at call time (not module load time) so that
+ * tests can override the location via APOLLO_CLI_CONFIG_DIR without needing
+ * to re-import the module.
+ */
 export function getConfigDir(): string {
-  return CONFIG_DIR;
+  return process.env.APOLLO_CLI_CONFIG_DIR ?? join(homedir(), '.apollo-cli');
 }
 
 export function getConfigPath(): string {
-  return CONFIG_FILE;
+  return join(getConfigDir(), 'config.json');
 }
 
 export async function loadConfig(): Promise<ApolloConfig | null> {
   try {
-    const content = await readFile(CONFIG_FILE, 'utf-8');
+    const content = await readFile(getConfigPath(), 'utf-8');
     return JSON.parse(content) as ApolloConfig;
   } catch {
     return null;
@@ -24,15 +26,15 @@ export async function loadConfig(): Promise<ApolloConfig | null> {
 }
 
 export async function saveConfig(config: ApolloConfig): Promise<void> {
-  await mkdir(CONFIG_DIR, { recursive: true });
-  await writeFile(CONFIG_FILE, JSON.stringify(config, null, 2) + '\n', {
+  await mkdir(getConfigDir(), { recursive: true });
+  await writeFile(getConfigPath(), JSON.stringify(config, null, 2) + '\n', {
     mode: 0o600,
   });
 }
 
 export async function deleteConfig(): Promise<void> {
   try {
-    await rm(CONFIG_FILE);
+    await rm(getConfigPath());
   } catch {
     // File doesn't exist, that's fine
   }

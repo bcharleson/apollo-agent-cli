@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { CommandDefinition } from '../../core/types.js';
+import { UserInputError } from '../../core/errors.js';
 
 export const tasksUpdateCommand: CommandDefinition = {
   name: 'tasks_update',
@@ -40,14 +41,14 @@ export const tasksUpdateCommand: CommandDefinition = {
   handler: async (inp, client) => {
     const input = inp as Record<string, any>;
     const { task_id, ...rest } = input;
-    if (!task_id) throw new Error('task-id is required');
+    if (!task_id) throw new UserInputError('task-id is required');
 
     const body: Record<string, any> = {};
     for (const [k, v] of Object.entries(rest)) {
       if (v !== undefined && v !== null && v !== '') body[k] = v;
     }
     if (Object.keys(body).length === 0) {
-      throw new Error('Provide at least one field to update');
+      throw new UserInputError('Provide at least one field to update');
     }
 
     return client.patch(`/tasks/${encodeURIComponent(task_id)}`, body);

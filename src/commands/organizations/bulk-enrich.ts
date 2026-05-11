@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { CommandDefinition } from '../../core/types.js';
+import { UserInputError } from '../../core/errors.js';
 
 export const organizationsBulkEnrichCommand: CommandDefinition = {
   name: 'organizations_bulk_enrich',
@@ -39,7 +40,7 @@ export const organizationsBulkEnrichCommand: CommandDefinition = {
       : undefined;
 
     if (!domains && !names) {
-      throw new Error('Provide --domains or --names');
+      throw new UserInputError('Provide --domains or --names');
     }
 
     const details: Record<string, string>[] = [];

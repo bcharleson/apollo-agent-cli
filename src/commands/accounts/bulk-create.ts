@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { CommandDefinition } from '../../core/types.js';
+import { UserInputError } from '../../core/errors.js';
 
 export const accountsBulkCreateCommand: CommandDefinition = {
   name: 'accounts_bulk_create',
@@ -28,13 +29,13 @@ export const accountsBulkCreateCommand: CommandDefinition = {
     try {
       accounts = JSON.parse(input.accounts_json);
     } catch {
-      throw new Error('--accounts must be valid JSON array');
+      throw new UserInputError('--accounts must be valid JSON array');
     }
     if (!Array.isArray(accounts)) {
-      throw new Error('--accounts must be a JSON array');
+      throw new UserInputError('--accounts must be a JSON array');
     }
     if (accounts.length > 100) {
-      throw new Error('Maximum 100 accounts per bulk create request');
+      throw new UserInputError('Maximum 100 accounts per bulk create request');
     }
     return client.post('/accounts/bulk_create', { accounts });
   },

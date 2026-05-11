@@ -59,6 +59,20 @@ export class MasterKeyError extends ApolloError {
   }
 }
 
+/**
+ * Raised when the user supplies invalid CLI input (bad JSON, missing required
+ * flag, oversized bulk array, mutually exclusive flags). Distinct from
+ * `ValidationError` which is reserved for Apollo's 400/422 server responses.
+ *
+ * Agents should treat this as "fix your call args" rather than "retry".
+ */
+export class UserInputError extends ApolloError {
+  constructor(message: string) {
+    super(message, 'USER_INPUT_ERROR');
+    this.name = 'UserInputError';
+  }
+}
+
 export function formatError(error: unknown): { message: string; code: string } {
   if (error instanceof ApolloError) {
     return { message: error.message, code: error.code };

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { CommandDefinition } from '../../core/types.js';
+import { UserInputError } from '../../core/errors.js';
 
 export const peopleEnrichCommand: CommandDefinition = {
   name: 'people_enrich',
@@ -58,8 +59,21 @@ export const peopleEnrichCommand: CommandDefinition = {
   },
 
   handler: async (input, client) => {
-    if (input.reveal_phone_number && !input.webhook_url) {
-      throw new Error(
+    const inp = input as Record<string, unknown>;
+    const hasIdentifier =
+      inp.email ||
+      inp.hashed_email ||
+      inp.linkedin_url ||
+      (inp.first_name && inp.last_name && (inp.domain || inp.organization_name));
+
+    if (!hasIdentifier) {
+      throw new UserInputError(
+        'Provide at least one identifier: --email, --linkedin-url, --hashed-email, or --first-name + --last-name + (--domain or --org-name)',
+      );
+    }
+
+    if (inp.reveal_phone_number && !inp.webhook_url) {
+      throw new UserInputError(
         '--reveal-phone requires --webhook-url (results are delivered asynchronously to your webhook endpoint)',
       );
     }

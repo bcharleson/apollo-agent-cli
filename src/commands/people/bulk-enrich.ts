@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { CommandDefinition } from '../../core/types.js';
+import { UserInputError } from '../../core/errors.js';
 
 export const peopleBulkEnrichCommand: CommandDefinition = {
   name: 'people_bulk_enrich',
@@ -43,7 +44,7 @@ export const peopleBulkEnrichCommand: CommandDefinition = {
   handler: async (inp, client) => {
     const input = inp as Record<string, any>;
     if (input.reveal_phone_number && !input.webhook_url) {
-      throw new Error('--reveal-phone requires --webhook-url (results are async)');
+      throw new UserInputError('--reveal-phone requires --webhook-url (results are async)');
     }
 
     // Build details array from comma-separated inputs
@@ -62,7 +63,7 @@ export const peopleBulkEnrichCommand: CommandDefinition = {
     }
 
     if (details.length === 0) {
-      throw new Error('Provide --emails or --linkedin-urls');
+      throw new UserInputError('Provide --emails or --linkedin-urls');
     }
 
     return client.post('/people/bulk_match', {

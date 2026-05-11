@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { CommandDefinition } from '../../core/types.js';
+import { UserInputError } from '../../core/errors.js';
 
 export const contactsUpdateLabelsCommand: CommandDefinition = {
   name: 'contacts_update_labels',
@@ -45,8 +46,8 @@ export const contactsUpdateLabelsCommand: CommandDefinition = {
     };
     if (input.remove_labels) body.remove_labels = true;
 
-    if (body.contact_ids.length === 0) throw new Error('--contact-ids must include at least one ID');
-    if (body.label_names.length === 0) throw new Error('--labels must include at least one label');
+    if (body.contact_ids.length === 0) throw new UserInputError('--contact-ids must include at least one ID');
+    if (body.label_names.length === 0) throw new UserInputError('--labels must include at least one label');
 
     return client.post('/contacts/update_labels', body);
   },

@@ -3,6 +3,7 @@ import type { CommandDefinition, GlobalOptions } from '../core/types.js';
 import { resolveApiKey } from '../core/auth.js';
 import { ApolloClient } from '../core/client.js';
 import { output, outputError } from '../core/output.js';
+import { UserInputError } from '../core/errors.js';
 
 // Auth commands (special — don't need an API client)
 import { registerLoginCommand } from './auth/login.js';
@@ -286,10 +287,10 @@ function registerCommand(parent: Command, cmdDef: CommandDefinition): void {
           .filter((i: any) => i.code === 'invalid_type' && String(i.message).includes('received undefined'))
           .map((i: any) => '--' + String(i.path?.[0] ?? '').replace(/_/g, '-'));
         if (missing.length > 0) {
-          throw new Error(`Missing required option(s): ${missing.join(', ')}`);
+          throw new UserInputError(`Missing required option(s): ${missing.join(', ')}`);
         }
         const msg = issues.map((i: any) => `${i.path?.join('.')}: ${i.message}`).join('; ');
-        throw new Error(`Invalid input: ${msg}`);
+        throw new UserInputError(`Invalid input: ${msg}`);
       }
 
       const result = await cmdDef.handler(parsed.data, client);

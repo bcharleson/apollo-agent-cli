@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { CommandDefinition } from '../../core/types.js';
+import { UserInputError } from '../../core/errors.js';
 
 export const contactsUpdateCommand: CommandDefinition = {
   name: 'contacts_update',
@@ -45,7 +46,7 @@ export const contactsUpdateCommand: CommandDefinition = {
   handler: async (inp, client) => {
     const input = inp as Record<string, any>;
     const { contact_id, label_names, ...rest } = input;
-    if (!contact_id) throw new Error('contact-id is required');
+    if (!contact_id) throw new UserInputError('contact-id is required');
 
     const body: Record<string, any> = {};
     for (const [k, v] of Object.entries(rest)) {

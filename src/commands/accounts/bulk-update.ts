@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { CommandDefinition } from '../../core/types.js';
+import { UserInputError } from '../../core/errors.js';
 
 export const accountsBulkUpdateCommand: CommandDefinition = {
   name: 'accounts_bulk_update',
@@ -35,20 +36,20 @@ export const accountsBulkUpdateCommand: CommandDefinition = {
     try {
       accounts = JSON.parse(input.accounts_json);
     } catch {
-      throw new Error('--accounts must be valid JSON array');
+      throw new UserInputError('--accounts must be valid JSON array');
     }
     if (!Array.isArray(accounts)) {
-      throw new Error('--accounts must be a JSON array');
+      throw new UserInputError('--accounts must be a JSON array');
     }
     if (accounts.length === 0) {
-      throw new Error('--accounts array must not be empty');
+      throw new UserInputError('--accounts array must not be empty');
     }
     if (accounts.length > 100) {
-      throw new Error('Maximum 100 accounts per bulk update request');
+      throw new UserInputError('Maximum 100 accounts per bulk update request');
     }
     for (const a of accounts) {
       if (!a || typeof a !== 'object' || !a.id) {
-        throw new Error('Each account in --accounts must have an "id" field');
+        throw new UserInputError('Each account in --accounts must have an "id" field');
       }
     }
     return client.post('/accounts/bulk_update', { accounts });
