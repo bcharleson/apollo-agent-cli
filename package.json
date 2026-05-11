@@ -4,7 +4,7 @@
   "description": "CLI and MCP server for Apollo.io — wraps the full Apollo API for agent-native use",
   "type": "module",
   "bin": {
-    "apollo": "./dist/index.js"
+    "apollo": "dist/index.js"
   },
   "files": [
     "dist",
@@ -48,7 +48,6 @@
   },
   "devDependencies": {
     "@types/node": "^25.3.3",
-    "@vitest/coverage-v8": "^3.2.4",
     "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
