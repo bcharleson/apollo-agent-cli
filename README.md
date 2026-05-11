@@ -488,7 +488,8 @@ npm install
 
 npm run dev -- people search          # Dev mode (tsx)
 npm run build                         # Build with tsup
-npm test                              # 95 tests, no API key required
+npm test                              # 169 unit/integration tests, no API key required
+npm run test:e2e                      # Live Apollo API smoke (needs APOLLO_API_KEY; optional APOLLO_E2E_SKIP_CREDITS=1)
 npm run typecheck                     # tsc --noEmit
 ```
 

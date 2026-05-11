@@ -464,6 +464,16 @@ apollo usage-stats api --pretty                                   # Requires mas
 
 ---
 
+## Live E2E API smoke (`scripts/e2e-apollo-live.mjs`)
+
+After `npm run build`, run `npm run test:e2e` with `APOLLO_API_KEY` set. The script hits nearly every **read** command (search, list, get-by-id chains, stages, labels) and treats **master-only** endpoints as passing if either the call succeeds or the CLI returns `MASTER_KEY_REQUIRED` (so a non-master key run still validates wiring).
+
+- Set `APOLLO_E2E_SKIP_CREDITS=1` to skip enrichment / `people bulk-enrich` (avoids burning credits).
+- Set `APOLLO_E2E_REPORT_ID` to include `analytics report`.
+- Write operations (create contact, deals create, sequence mutations, etc.) are **not** automated here — run them manually in a sandbox when validating edits.
+
+---
+
 ## Platform Limitations (Not Available via Public API)
 
 These are Apollo platform limitations, not CLI gaps. The CLI does NOT wrap them because Apollo does not document them publicly:
