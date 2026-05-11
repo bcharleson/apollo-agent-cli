@@ -118,7 +118,7 @@ npm run typecheck  # TypeScript type checking
 - **Deals API path:** `opportunities` (NOT `deals`) — CLI aliases to `deals`
 - **Companies API path:** `mixed_companies` for search, `organizations` for enrichment
 - **Master key:** ~half the endpoints require a master key. Detection lives in `src/core/client.ts` as `MASTER_KEY_PATTERNS` — explicit `(method, regex)` tuples (NOT prefix matching, which used to false-positive `/accounts/search`). On 403, the client checks the tuple list and raises `MasterKeyError` if matched.
-- **People search vs enrichment:** Search (`/mixed_people/search`) returns profiles only, no credits. Enrichment (`/people/match`) returns emails/phones, consumes credits.
+- **People search vs enrichment:** Search (`/mixed_people/api_search`) returns profiles only, no credits. Enrichment (`/people/match`) returns emails/phones, consumes credits.
 - **Modern People filter names:** `q_organization_domains_list` (NOT the legacy `q_organization_domains`). `person_titles[]`, `person_seniorities[]`, `contact_email_status[]` all expect arrays.
 - **Multi-value filters:** Many Apollo POST endpoints expect arrays. Custom handlers split comma-separated CLI strings into arrays before sending.
 - **Negated boolean flags:** Commander stores `--no-foo` under property `foo` (default true, false when passed). The flag → field mapping in `src/commands/index.ts` strips the `no-` prefix before camelCasing.

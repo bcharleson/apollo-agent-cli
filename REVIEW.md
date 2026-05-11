@@ -214,7 +214,7 @@ For each command file, verify:
 ### 8. Apollo API Correctness
 Cross-check these against the known Apollo API:
 - Base URL: `https://api.apollo.io/api/v1` — is this used in `client.ts`?
-- People search endpoint: `POST /mixed_people/search` (NOT `/people/search`)
+- People search endpoint: `POST /mixed_people/api_search` (NOT `/mixed_people/search`, which is deprecated for API callers)
 - People enrichment: `POST /people/match`
 - Bulk people enrichment: `POST /people/bulk_match`
 - Org enrichment: `GET /organizations/enrich`

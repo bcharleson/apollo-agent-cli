@@ -99,7 +99,7 @@ export const peopleSearchCommand: CommandDefinition = {
     ],
   },
 
-  endpoint: { method: 'POST', path: '/mixed_people/search' },
+  endpoint: { method: 'POST', path: '/mixed_people/api_search' },
 
   paginated: true,
 
@@ -126,6 +126,6 @@ export const peopleSearchCommand: CommandDefinition = {
     if (input.contact_email_status)
       body.contact_email_status = splitCsv(input.contact_email_status);
 
-    return client.post('/mixed_people/search', body);
+    return client.post('/mixed_people/api_search', body);
   },
 };
